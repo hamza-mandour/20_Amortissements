@@ -6,6 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        /* styles.css */
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
         table {
             border-collapse: collapse;
             width: 100%;
@@ -25,23 +69,26 @@
 </head>
 
 <body>
-    <label for="">Valeur d'entrée
-        <input type="number" id="ve">
-    </label>
-    <label for="">Date d'acquisition
-        <input type="date" id="dat_acq">
-    </label>
-    <label for="">Durée de vie
-        <input type="number" id="Durée">
-    </label>
-    <label for="">Méthode d'Amt
-        <select name="" id="method">
-            <option value="" disabled selected>choiser</option>
-            <option value="Linéaire">Linéaire</option>
-            <option value="Dégressive">Dégressive</option>
-        </select>
-    </label>
-    <button onclick="tr()">calcul</button>
+
+    <div class="container">
+        <label for="">Valeur d'entrée
+            <input type="number" id="ve">
+        </label>
+        <label for="">Date d'acquisition
+            <input type="date" id="dat_acq">
+        </label>
+        <label for="">Durée de vie
+            <input type="number" id="Durée">
+        </label>
+        <label for="">Méthode d'Amt
+            <select name="" id="method">
+                <option value="" disabled selected>choiser</option>
+                <option value="Linéaire">Linéaire</option>
+                <option value="Dégressive">Dégressive</option>
+            </select>
+        </label>
+        <button onclick="tr()">calcul</button>
+    </div>
     <table id="myTable">
         <!-- The table content will be dynamically added by the script -->
 
@@ -104,7 +151,7 @@
                     newRow.innerHTML += `<tr id = "row">
                                             <td>${year} (${months} mois)</td>
                                             <td>${ve}</td>
-                                            <td>${t_l}%</td>
+                                            <td>${t_l.toFixed(2)}%</td>
                                             <td>${annuite.toFixed(2)}</td>
                                             <td>${amt_cuml.toFixed(2)}</td>
                                             <td>${vna.toFixed(2)}</td>
