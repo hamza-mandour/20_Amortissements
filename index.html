@@ -4,13 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     
-    <meta name="description" content="this is my own project">
-     <meta property="og:title" content="Amortissements">
-    <meta property="og:description" content="Hello and welcome to my website! I'm Hamza Mandour. Enjoy your visit.">
-    <meta property="og:image" content="photo1672408368.jpeg">
-    <meta property="og:url" content="https://hamza-mandour.com">
-    <title>Amortissements</title>
+
+    <title>Document</title>
+
+
     <style>
         /* styles.css */
 
@@ -63,17 +60,19 @@
 
         th,
         td {
+
             border: 1px solid #dddddd;
-            text-align: left;
+            background-color: #c2c2c2;
+            text-align: center;
             padding: 8px;
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #919191;
         }
 
         footer {
-             width: 100%;
+
             margin-top: 20px;
             text-align: center;
             padding: 10px;
@@ -114,7 +113,7 @@
 
     </table>
     <footer>
-        <p>&copy; 2024  Mandour HAMZA. All rights reserved.</p>
+        <p>&copy; 2024 Hamza Mandour. All rights reserved.</p>
     </footer>
 
     <script>
@@ -172,7 +171,7 @@
                     amt_cuml += annuite
                     var vna = ve - amt_cuml
                     newRow.innerHTML += `<tr id = "row">
-                                            <td>${year} (${months} mois)</td>
+                                            <td>${year}(<small>${months} mois</small>)</td>
                                             <td>${ve}</td>
                                             <td>${t_l.toFixed(2)}%</td>
                                             <td>${annuite.toFixed(2)}</td>
@@ -195,16 +194,35 @@
             }
             else if (method === 'Dégressive') {
 
-                newRow.innerHTML += ` <tr>
-            <th>Périodes</th>
-            <th>Valeur entrée </th>
-            <th>Taux Linéaire</th>
-            <th>Taux Dégressive</th>
-            <th>Taux amt</th>
-            <th>Annuité d'Amt</th>
-            <th>Amt cumulé</th>
-            <th> V.N.A</th>
-        </tr>`
+                var method = document.getElementById('method').value;
+                var newRow = document.getElementById("myTable");
+                newRow.innerHTML = "<table id='myTable'></table>";
+
+                var ve = document.getElementById('ve').value;
+                var ve_fix = ve;
+                var dat_acq = document.getElementById('dat_acq').value;
+                var duree = document.getElementById('Durée').value;
+                var t_l = 100 / duree;
+                var t_d;
+                var t_amt;
+                var date = new Date(dat_acq)
+                var month = date.getMonth() + 1
+                var year = date.getFullYear()
+
+                var sum_months = duree * 12
+                var months = 13 - month
+
+                // Adding table header based on method selection
+                newRow.innerHTML += `<tr>
+                                    <th>Périodes</th>
+                                    <th>Valeur entrée </th>
+                                    <th>Taux Linéaire</th>
+                                    <th>Taux Dégressive</th>
+                                    <th>Taux amt</th>
+                                    <th>Annuité d'Amt</th>
+                                    <th>Amt cumulé</th>
+                                    <th> V.N.A</th>
+                                </tr>`
 
                 if (duree > 6) {
                     t_d = t_l * 3
@@ -215,18 +233,15 @@
                 else if (duree <= 4 && duree >= 3) {
                     t_d = t_l * 1.5
                 }
-                annuite
+                var annuite
                 var cuml_amt = 0;
                 var vna
 
                 while (sum_months > 0) {
-
                     sum_months = sum_months - months
-
 
                     if (t_l > t_d) {
                         t_amt = t_l.toFixed(2)
-
                         annuite = ve * (t_amt / 100) * (months / 12)
                         cuml_amt += annuite
                         vna = ve_fix - cuml_amt
@@ -237,26 +252,21 @@
                         cuml_amt += annuite
                         vna = ve_fix - cuml_amt
                     }
-                    newRow.innerHTML += `<tr id = "row">
-                                            <td>${year}(${months} mois)</td>
-                                            <td>${ve}</td>
-                                            <td>${t_l.toFixed(2)}%</td>
-                                            <td>${t_d.toFixed(2)}%</td>
-                                            <td>${t_amt}%</td>
-                                            <td>${annuite.toFixed(2)} </td>
-                                            <td>${cuml_amt.toFixed(2)} </td>
-                                            <td>${vna.toFixed(2)}</td>
-                                        </tr> `
+                    newRow.innerHTML += `<tr id="row">
+                                        <td>${year}<small>(${months} mois</small>)</td>
+                                        <td>${ve}</td>
+                                        <td>${t_l.toFixed(2)}%</td>
+                                        <td>${t_d.toFixed(2)}%</td>
+                                        <td>${t_amt}%</td>
+                                        <td>${annuite.toFixed(2)}</td>
+                                        <td>${cuml_amt.toFixed(2)}</td>
+                                        <td>${vna.toFixed(2)}</td>
+                                    </tr> `
                     if (t_d > t_l) {
                         t_amt = t_d.toFixed(2)
                         t_l = 100 / (sum_months / 12)
                         ve = vna
-
                     }
-
-
-
-
                     if (sum_months >= month) {
                         months = 12
                     }
@@ -269,7 +279,7 @@
             }
 
             else {
-                newRow.innerHTML += '<p>error</p>'
+                newRow.innerHTML += '<p>"Veuillez choisir la méthode de calcul."</p>'
             }
         }
     </script>
