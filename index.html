@@ -1,287 +1,360 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Document</title>
-
-
+    <link rel="stylesheet" href="css/master.css">
+    <title>RideShare - Location de Vélos à Bouznika</title>
     <style>
-        /* styles.css */
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        input,
-        select {
+        .loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            z-index: 9999;
         }
 
-        button {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        .loader svg {
+            width: 100px;
+            height: 100px;
         }
 
-        button:hover {
-            background-color: #0056b3;
+        .absolute {
+            position: absolute;
         }
 
-        table {
-            border-collapse: collapse;
-            width: 100%;
+        .inline-block {
+            display: inline-block;
         }
 
-        th,
-        td {
-
-            border: 1px solid #dddddd;
-            background-color: #c2c2c2;
-            text-align: center;
-            padding: 8px;
+        .loader {
+            display: flex;
+            margin: 0.25em 0;
         }
 
-        th {
-            background-color: #919191;
+        .w-2 {
+            width: 0.5em;
         }
 
-        footer {
-
-            margin-top: 20px;
-            text-align: center;
-            padding: 10px;
-            background-color: #333;
-            color: #fff;
+        .dash {
+            animation: dashArray 2s ease-in-out infinite,
+                dashOffset 2s linear infinite;
         }
 
-        footer p {
-            margin: 0;
+        .spin {
+            animation: spinDashArray 2s ease-in-out infinite,
+                spin 8s ease-in-out infinite,
+                dashOffset 2s linear infinite;
+            transform-origin: center;
+        }
+
+        @keyframes dashArray {
+            0% {
+                stroke-dasharray: 0 1 359 0;
+            }
+
+            50% {
+                stroke-dasharray: 0 359 1 0;
+            }
+
+            100% {
+                stroke-dasharray: 359 1 0 0;
+            }
+        }
+
+        @keyframes spinDashArray {
+            0% {
+                stroke-dasharray: 270 90;
+            }
+
+            50% {
+                stroke-dasharray: 0 360;
+            }
+
+            100% {
+                stroke-dasharray: 270 90;
+            }
+        }
+
+        @keyframes dashOffset {
+            0% {
+                stroke-dashoffset: 365;
+            }
+
+            100% {
+                stroke-dashoffset: 5;
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                rotate: 0deg;
+            }
+
+            12.5%,
+            25% {
+                rotate: 270deg;
+            }
+
+            37.5%,
+            50% {
+                rotate: 540deg;
+            }
+
+            62.5%,
+            75% {
+                rotate: 810deg;
+            }
+
+            87.5%,
+            100% {
+                rotate: 1080deg;
+            }
         }
     </style>
 </head>
 
 <body>
+    <div class="loader">
+        <svg height="0" width="0" viewBox="0 0 64 64" class="absolute">
+            <defs class="s-xJBuHA073rTt" xmlns="http://www.w3.org/2000/svg">
+                <linearGradient class="s-xJBuHA073rTt" gradientUnits="userSpaceOnUse" y2="2" x2="0" y1="62" x1="0"
+                    id="b">
+                    <stop class="s-xJBuHA073rTt" stop-color="#973BED"></stop>
+                    <stop class="s-xJBuHA073rTt" stop-color="#007CFF" offset="1"></stop>
+                </linearGradient>
+                <linearGradient class="s-xJBuHA073rTt" gradientUnits="userSpaceOnUse" y2="0" x2="0" y1="64" x1="0"
+                    id="c">
+                    <stop class="s-xJBuHA073rTt" stop-color="#FFC800"></stop>
+                    <stop class="s-xJBuHA073rTt" stop-color="#F0F" offset="1"></stop>
+                    <animateTransform repeatCount="indefinite"
+                        keySplines=".42,0,.58,1;.42,0,.58,1;.42,0,.58,1;.42,0,.58,1;.42,0,.58,1;.42,0,.58,1;.42,0,.58,1;.42,0,.58,1"
+                        keyTimes="0; 0.125; 0.25; 0.375; 0.5; 0.625; 0.75; 0.875; 1" dur="8s"
+                        values="0 32 32;-270 32 32;-270 32 32;-540 32 32;-540 32 32;-810 32 32;-810 32 32;-1080 32 32;-1080 32 32"
+                        type="rotate" attributeName="gradientTransform"></animateTransform>
+                </linearGradient>
+                <linearGradient class="s-xJBuHA073rTt" gradientUnits="userSpaceOnUse" y2="2" x2="0" y1="62" x1="0"
+                    id="d">
+                    <stop class="s-xJBuHA073rTt" stop-color="#00E0ED"></stop>
+                    <stop class="s-xJBuHA073rTt" stop-color="#00DA72" offset="1"></stop>
+                </linearGradient>
+            </defs>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+            style="--rotation-duration:0ms; --rotation-direction:normal;" viewBox="0 0 64 64" height="64" width="64"
+            class="inline-block">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="10" stroke="url(#c)" d="M 32 32
+    m 0 -27
+    a 27 27 0 1 1 0 54
+    a 27 27 0 1 1 0 -54" class="spin" id="o" pathLength="360"></path>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 64 64" height="64" width="64"
+            class="inline-block">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="8" stroke="url(#b)"
+                d="M 10 4 L 54 4 L 54 14 L 20 14 L 20 28 L 54 28 L 54 38 L 20 38 L 20 60 L 10 60 Z" class="dash" id="y"
+                pathLength="360"></path>
+        </svg>
 
-    <div class="container">
-        <label for="">Valeur d'entrée
-            <input type="number" id="ve">
-        </label>
-        <label for="">Date d'acquisition
-            <input type="date" id="dat_acq">
-        </label>
-        <label for="">Durée de vie
-            <input type="number" id="Durée">
-        </label>
-        <label for="">Méthode d'Amt
-            <select name="" id="method">
-                <option value="" disabled selected>choiser</option>
-                <option value="Linéaire">Linéaire</option>
-                <option value="Dégressive">Dégressive</option>
-            </select>
-        </label>
-        <button onclick="tr()">calcul</button>
+        <div class="w-2"></div>
+
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 64 64" height="64" width="64"
+            class="inline-block">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="8" stroke="url(#b)"
+                d="M 10 4 H 34 C 41.18 4 46 8.82 46 16 C 46 23.18 41.18 28 34 28 H 20 V 60 H 10 Z M 20 12 V 20 H 34 C 36.21 20 38 18.21 38 16 C 38 13.79 36.21 12 34 12 Z"
+                class="dash" id="y" pathLength="360"></path>
+        </svg>
+
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 64 64" height="64" width="64"
+            class="inline-block">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="8" stroke="url(#b)"
+                d="M 10 4 H 34 C 41.18 4 46 8.82 46 16 C 46 23.18 41.18 28 34 28 H 20 V 60 H 10 Z M 20 12 V 20 H 34 C 36.21 20 38 18.21 38 16 C 38 13.79 36.21 12 34 12 Z"
+                class="dash" id="y" pathLength="360"></path>
+        </svg>
+
+        <div class="w-2"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 64 64" height="64" width="64"
+            class="inline-block">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="8" stroke="url(#d)"
+                d="M 10 4 H 54 V 14 H 38 V 60 H 28 V 14 H 10 Z" class="dash" id="t" pathLength="360"></path>
+        </svg>
+
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500"
+            zoomAndPan="magnify" viewBox="0 0 375 374.999991" height="500" preserveAspectRatio="xMidYMid meet"
+            version="1.0">
+            <defs>
+                <g />
+            </defs>
+            <path stroke-linecap="butt"
+                transform="matrix(-2.144778, -2.144778, 2.144778, -2.144778, 353.790888, 158.596514)" fill="none"
+                stroke-linejoin="miter" d="M 0.000159295 1.500046 L 37.454869 1.500046 " stroke="#00519b"
+                stroke-width="3" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(2.166291, -2.123047, 2.123047, 2.166291, 273.493551, 230.854511)" fill="none"
+                stroke-linejoin="miter" d="M 0.0000174238 1.500719 L 37.082321 1.499343 " stroke="#00519b"
+                stroke-width="3" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(-2.142685, -2.146869, 2.146869, -2.142685, 273.554665, 237.307967)" fill="none"
+                stroke-linejoin="miter" d="M 0.000400951 1.499687 L 37.045336 1.499974 " stroke="#00519b"
+                stroke-width="3" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(-2.144778, -2.144778, 2.144778, -2.144778, 344.152628, 156.334531)" fill="none"
+                stroke-linejoin="miter" d="M -0.000261662 0.500459 L 31.922297 0.499548 " stroke="#00519b"
+                stroke-width="1" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(2.166291, -2.123047, 2.123047, 2.166291, 275.693365, 221.267563)" fill="none"
+                stroke-linejoin="miter" d="M -0.00042837 0.499974 L 31.605921 0.500073 " stroke="#00519b"
+                stroke-width="1" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(-2.142685, -2.146869, 2.146869, -2.142685, 275.768746, 223.422787)" fill="none"
+                stroke-linejoin="miter" d="M -0.000392918 0.500339 L 31.573402 0.500499 " stroke="#00519b"
+                stroke-width="1" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(-2.144778, -2.144778, 2.144778, -2.144778, 268.786304, 158.596514)" fill="none"
+                stroke-linejoin="miter" d="M 0.00000129039 1.500204 L 37.454711 1.500204 " stroke="#999b9e"
+                stroke-width="3" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(2.166291, -2.123047, 2.123047, 2.166291, 188.488939, 230.854511)" fill="none"
+                stroke-linejoin="miter" d="M -0.000735982 1.499981 L 37.082487 1.499506 " stroke="#999b9e"
+                stroke-width="3" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(2.166291, -2.123047, 2.123047, 2.166291, 190.688781, 221.267563)" fill="none"
+                stroke-linejoin="miter" d="M -0.000268781 0.500131 L 31.606081 0.50023 " stroke="#999b9e"
+                stroke-width="1" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(2.140922, -2.148627, 2.148627, 2.140922, 14.76498, 151.352788)" fill="none"
+                stroke-linejoin="miter" d="M 0.000474342 1.499695 L 37.014487 1.500611 " stroke="#009d56"
+                stroke-width="3" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(-2.142685, -2.146869, 2.146869, -2.142685, 94.114342, 237.307967)" fill="none"
+                stroke-linejoin="miter" d="M -0.000256427 1.500345 L 37.044678 1.500632 " stroke="#009d56"
+                stroke-width="3" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(2.140922, -2.148627, 2.148627, 2.140922, 28.703621, 153.50892)" fill="none"
+                stroke-linejoin="miter" d="M 0.000155676 0.49957 L 31.548487 0.499775 " stroke="#009d56"
+                stroke-width="1" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(-2.144778, -2.144778, 2.144778, -2.144778, 164.712327, 156.334531)" fill="none"
+                stroke-linejoin="miter" d="M -0.00000400556 0.500201 L 31.922555 0.499291 " stroke="#009d56"
+                stroke-width="1" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(-2.144778, -2.144778, 2.144778, -2.144778, 259.148044, 156.334531)" fill="none"
+                stroke-linejoin="miter" d="M 0.000490975 0.499706 L 31.922139 0.499706 " stroke="#999b9e"
+                stroke-width="1" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(2.140922, -2.148627, 2.148627, 2.140922, 194.205285, 151.352788)" fill="none"
+                stroke-linejoin="miter" d="M 0.00073081 1.499952 L 37.013834 1.499956 " stroke="#00519b"
+                stroke-width="3" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(2.140922, -2.148627, 2.148627, 2.140922, 208.143917, 153.50892)" fill="none"
+                stroke-linejoin="miter" d="M 0.000414098 0.499829 L 31.547837 0.499122 " stroke="#00519b"
+                stroke-width="1" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(2.166291, -2.123047, 2.123047, 2.166291, 96.253064, 221.267563)" fill="none"
+                stroke-linejoin="miter" d="M 0.000231165 0.500621 L 31.605661 0.499818 " stroke="#009d56"
+                stroke-width="1" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(-2.142685, -2.146869, 2.146869, -2.142685, 96.328445, 223.422787)" fill="none"
+                stroke-linejoin="miter" d="M -0.000135513 0.500081 L 31.573659 0.500241 " stroke="#009d56"
+                stroke-width="1" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(-2.142685, -2.146869, 2.146869, -2.142685, 188.55005, 237.307967)" fill="none"
+                stroke-linejoin="miter" d="M 0.000235835 1.499852 L 37.045171 1.500139 " stroke="#999b9e"
+                stroke-width="3" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(-2.142685, -2.146869, 2.146869, -2.142685, 190.764162, 223.422787)" fill="none"
+                stroke-linejoin="miter" d="M 0.000358985 0.499585 L 31.574154 0.499746 " stroke="#999b9e"
+                stroke-width="1" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(-2.144778, -2.144778, 2.144778, -2.144778, 174.35059, 158.596514)" fill="none"
+                stroke-linejoin="miter" d="M 0.000417511 1.499788 L 37.454217 1.500699 " stroke="#009d56"
+                stroke-width="3" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(2.166291, -2.123047, 2.123047, 2.166291, 94.053229, 230.854511)" fill="none"
+                stroke-linejoin="miter" d="M -0.000237731 1.500469 L 37.082986 1.499994 " stroke="#009d56"
+                stroke-width="3" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(2.140922, -2.148627, 2.148627, 2.140922, 123.139333, 153.50892)" fill="none"
+                stroke-linejoin="miter" d="M 0.000571818 0.499987 L 31.547994 0.49928 " stroke="#999b9e"
+                stroke-width="1" stroke-opacity="1" stroke-miterlimit="4" />
+            <path stroke-linecap="butt"
+                transform="matrix(2.140922, -2.148627, 2.148627, 2.140922, 109.200701, 151.352788)" fill="none"
+                stroke-linejoin="miter" d="M -0.0000204749 1.499198 L 37.013992 1.500114 " stroke="#999b9e"
+                stroke-width="3" stroke-opacity="1" stroke-miterlimit="4" />
+
     </div>
-    <table id="myTable">
-        <!-- The table content will be dynamically added by the script -->
+    </svg>
 
 
-    </table>
-    <footer>
-        <p>&copy; 2024 Hamza Mandour. All rights reserved.</p>
-    </footer>
+    <div class="header">
+        <a href="#"><img src="images/logo.svg" width="40%" alt="logo 'RideShare'"></a>
+        <div class="navbar">
+            <a href="#about">À propos</a>
+            <a href="#">Services</a>
+            <a href="#">Tarifs</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+    <div class="container">
+        <img src="images/Bike.svg" alt="">
+        <div class="text-content">
+            <h1>Bienvenue chez RideShare</h1>
+            <h2>Profitez d'une expérience unique à Bouznika !</h2>
+            <p>
+                Vous cherchez un moyen amusant et sain pour explorer la ville de Bouznika ? Nous sommes là pour vous
+                offrir la meilleure expérience de location de vélos ! Que vous soyez résident ou visiteur, vous
+                trouverez
+                chez nous le vélo parfait pour vos besoins.
+            </p>
+        </div>
+    </div>
 
+    <div class="container" id="about">
+        <div class="text-content">
+            <h1 class="about">À Propos de RideShare</h1>
+            <p>
+                Bienvenue chez RideShare, votre destination de choix pour la location de vélos à Bouznika ! Nous sommes
+                passionnés par le cyclisme et dévoués à offrir une expérience exceptionnelle à nos clients. Que vous
+                soyez un cycliste chevronné ou un débutant, nous avons le vélo parfait pour vous.
+            </p>
+            <h2>Notre Mission</h2>
+            <p>
+                Chez RideShare, notre mission est de promouvoir un mode de vie sain et actif tout en offrant une façon
+                amusante et écologique de découvrir Bouznika. Nous croyons que le cyclisme est non seulement bon pour la
+                santé, mais aussi pour l'environnement.
+            </p>
+            <h2>Pourquoi Choisir RideShare?</h2>
+            <ul>
+                <li>Vélos de haute qualité et bien entretenus</li>
+                <li>Équipe amicale et professionnelle</li>
+                <li>Prix compétitifs et flexibles</li>
+                <li>Services personnalisés adaptés à vos besoins</li>
+                <li>Engagement envers la satisfaction de la clientèle</li>
+            </ul>
+            <h2>Notre Équipe</h2>
+            <p>
+                Notre équipe est composée de passionnés de vélo qui connaissent bien la région et sont toujours prêts à
+                vous conseiller sur les meilleurs itinéraires et pratiques cyclistes. Nous sommes fiers de notre service
+                client et nous nous efforçons de rendre votre expérience avec RideShare inoubliable.
+            </p>
+            <h2>Contactez-Nous</h2>
+            <p>
+                N'hésitez pas à nous contacter pour toute question ou pour réserver votre vélo. Nous sommes impatients
+                de vous aider à explorer Bouznika d'une manière nouvelle et excitante!
+            </p>
+        </div>
+        <img src="images/team.jpg" alt="Notre équipe" class="team-image">
+    </div>
     <script>
-        function tr() {
-            var method = document.getElementById('method').value;
-            var newRow = document.getElementById("myTable");
-            newRow.innerHTML = "<table id='myTable'></table>";
-
-            var ve = document.getElementById('ve').value;
-            var ve_fix = ve;
-            var dat_acq = document.getElementById('dat_acq').value;
-            var duree = document.getElementById('Durée').value;
-            var t_l = 100 / duree;
-            var t_d;
-            var t_amt;
-            var date = new Date(dat_acq)
-            var month = date.getMonth() + 1
-            var year = date.getFullYear()
-
-            var sum_months = duree * 12
-            var months = 13 - month
-
-
-            var amt_cuml = 0;
-            if (duree > 6) {
-                t_d = t_l * 3
-            }
-            else if (duree <= 6 && duree >= 5) {
-                t_d = t_l * 2
-            }
-            else if (duree <= 4 && duree >= 3) {
-                t_d = t_l * 1.5
-            }
-
-
-            if (method === "Linéaire") {
-
-
-
-
-
-                newRow.innerHTML += ` <tr>
-                                        <th>Périodes</th>
-                                        <th>Valeur entrée </th>
-                                        <th>Taux</th>
-                                        <th>Annuité d'Amt</th>
-                                        <th>Amt cumulé</th>
-                                        <th> V.N.A</th>
-                                    </tr>`
-                while (sum_months > 0) {
-                    console.log(months)
-                    sum_months = sum_months - months
-
-                    annuite = ve * (t_l / 100) * (months) / 12
-                    amt_cuml += annuite
-                    var vna = ve - amt_cuml
-                    newRow.innerHTML += `<tr id = "row">
-                                            <td>${year}(<small>${months} mois</small>)</td>
-                                            <td>${ve}</td>
-                                            <td>${t_l.toFixed(2)}%</td>
-                                            <td>${annuite.toFixed(2)}</td>
-                                            <td>${amt_cuml.toFixed(2)}</td>
-                                            <td>${vna.toFixed(2)}</td>
-                                        </tr> `
-                    if (sum_months >= 12) {
-                        months = 12
-                    }
-                    else if (sum_months < 12) {
-                        months = sum_months
-                    }
-                    var i = 0
-
-                    i++
-                    year += i
-                }
-
-
-            }
-            else if (method === 'Dégressive') {
-
-                var method = document.getElementById('method').value;
-                var newRow = document.getElementById("myTable");
-                newRow.innerHTML = "<table id='myTable'></table>";
-
-                var ve = document.getElementById('ve').value;
-                var ve_fix = ve;
-                var dat_acq = document.getElementById('dat_acq').value;
-                var duree = document.getElementById('Durée').value;
-                var t_l = 100 / duree;
-                var t_d;
-                var t_amt;
-                var date = new Date(dat_acq)
-                var month = date.getMonth() + 1
-                var year = date.getFullYear()
-
-                var sum_months = duree * 12
-                var months = 13 - month
-
-                // Adding table header based on method selection
-                newRow.innerHTML += `<tr>
-                                    <th>Périodes</th>
-                                    <th>Valeur entrée </th>
-                                    <th>Taux Linéaire</th>
-                                    <th>Taux Dégressive</th>
-                                    <th>Taux amt</th>
-                                    <th>Annuité d'Amt</th>
-                                    <th>Amt cumulé</th>
-                                    <th> V.N.A</th>
-                                </tr>`
-
-                if (duree > 6) {
-                    t_d = t_l * 3
-                }
-                else if (duree <= 6 && duree >= 5) {
-                    t_d = t_l * 2
-                }
-                else if (duree <= 4 && duree >= 3) {
-                    t_d = t_l * 1.5
-                }
-                var annuite
-                var cuml_amt = 0;
-                var vna
-
-                while (sum_months > 0) {
-                    sum_months = sum_months - months
-
-                    if (t_l > t_d) {
-                        t_amt = t_l.toFixed(2)
-                        annuite = ve * (t_amt / 100) * (months / 12)
-                        cuml_amt += annuite
-                        vna = ve_fix - cuml_amt
-                    }
-                    else {
-                        t_amt = t_d
-                        annuite = ve * (t_amt / 100) * (months / 12)
-                        cuml_amt += annuite
-                        vna = ve_fix - cuml_amt
-                    }
-                    newRow.innerHTML += `<tr id="row">
-                                        <td>${year}<small>(${months} mois</small>)</td>
-                                        <td>${ve}</td>
-                                        <td>${t_l.toFixed(2)}%</td>
-                                        <td>${t_d.toFixed(2)}%</td>
-                                        <td>${t_amt}%</td>
-                                        <td>${annuite.toFixed(2)}</td>
-                                        <td>${cuml_amt.toFixed(2)}</td>
-                                        <td>${vna.toFixed(2)}</td>
-                                    </tr> `
-                    if (t_d > t_l) {
-                        t_amt = t_d.toFixed(2)
-                        t_l = 100 / (sum_months / 12)
-                        ve = vna
-                    }
-                    if (sum_months >= month) {
-                        months = 12
-                    }
-                    else {
-                        months = sum_months
-                    }
-                    console.log(ve)
-                    year++
-                }
-            }
-
-            else {
-                newRow.innerHTML += '<p>"Veuillez choisir la méthode de calcul."</p>'
-            }
-        }
+        // Hide the loader when the page finishes loading
+        window.addEventListener('load', function () {
+            document.querySelector('.loader').style.display = 'none';
+        });
     </script>
 </body>
 
